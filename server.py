@@ -42,7 +42,10 @@ def form():
     stalls = {}
     for row in rows:
         if not(row[0] in stalls):
-            stalls[f"{row[0]}"] = []
+            #JSON object {stall_name:{foods:price....food:price}
+            stalls[f"{row[0]}"] = {row[1]:row[2]}
+        else:
+            pass
 
 
 
