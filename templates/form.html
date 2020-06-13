@@ -26,10 +26,10 @@
                   </div>
                   <div id="navbarMenuHeroA" class="navbar-menu">
                     <div class="navbar-end">
-                      <a class="navbar-item">
+                      <a class="navbar-item" href="/">
                         Home
                       </a>
-                      <a class="navbar-item is-active">
+                      <a class="navbar-item is-active" href="/form">
                         Order form
                       </a>
                       <a class="navbar-item">
@@ -66,21 +66,21 @@
         {% for stall in stalls %}
         <section class="section">
             <div class="container">
-              <h1 class="title">{{stall.name}}</h1>
+              <h1 class="title">{{stall}}</h1>
               <div class="field">
                 <div class="control">
                   <div class="select is-primary">
                     <select>
-                      {% for option in foods %}
-                      <option>option.selection</option>
-                      {% end for %}
+                      {% for option in stall.stall %}
+                      <option>{{ option }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          {% end for %}
+          {% endfor %}
           <section class="section">
             <div class="columns is-centered">
               <div class="column is-two-thirds">
