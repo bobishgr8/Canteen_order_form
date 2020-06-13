@@ -19,38 +19,30 @@ def create_connection(db_file):
 
 all_foods = {}
 
-def dynamic_form():
-    new_db = sqlite3.connect("shitty 1NF db.db")
-    cur = new_db.cursor()
-    cur.execute(f'select * from foods where day_avail like \'%{day_cycle[day_cycle.index(date.today().strftime("%A"))+1]}%\'')
-    rows = cur.fetchall()
-    stalls = {}
-    for row in rows:
-        print(row)
-
-
-dynamic_form()
-
-
-
 @app.route("/form")
 def form():
-    new_db = sqlite3.connect("shitty 1NF db.db")
+    day_cycle = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    new_db = create_connection("shitty 1NF db.db")
     cur = new_db.cursor()
-    cur.execute(f'select * from foods where day_avail like \'%{day_cycle[day_cycle.index(date.today().strftime("%A"))+1]}%\'')
+    today = date.today().strftime("%A")
+    if today == "Saturday" or today == "Sunday":
+        order_day = "Monday"
+    else:
+        order_day = day_cycle[day_cycle.index(date.today().strftime("%A"))+1]
+
+    cur.execute(f'select * from foods where day_avail like \'%{order_day}%\'')
     rows = cur.fetchall()
+
     stalls = {}
-    for row in rows:
+    for enum,row in enumerate(rows):
         if not(row[0] in stalls):
-            stalls[f"{row[0]}"] = []
+            stalls[f"{row[0]}"] = {"options":{enum:f"{row[1]}"}}
+        else:
+            stalls[f"{row[0]}"]["options"][enum] = f"{row[1]}"
+    return render_template("form.html",Date=order_day,stalls=stalls)
 
 
 
-    return render_template("form.html")
 
-
-
-"""
 if __name__ == "__main__":
     app.run(debug=True)
-"""
