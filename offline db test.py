@@ -24,8 +24,14 @@ rows = cur.fetchall()
 stalls = {}
 for enum,row in enumerate(rows):
     if not(row[0] in stalls):
-        stalls[f"{row[0]}"] = {"options":{enum:f"{row[1]}"}}
+        stalls[f"{row[0]}"] = {f"{row[1]}":enum}
     else:
-        stalls[f"{row[0]}"]["options"][enum] = f"{row[1]}"
-
-print(stalls)
+        stalls[f"{row[0]}"][f"{row[1]}"] = enum
+"""
+for stall in stalls:
+    for option in stalls[stall]:
+        print(option)
+"""
+cur.execute("SELECT * FROM student")
+names = cur.fetchall()
+print(dict(names))

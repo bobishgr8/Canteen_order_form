@@ -62,7 +62,39 @@
             </div>
           </section>
         </section>
-        <!-- Load this point forward with jinja -->  
+        <!-- Load this point forward with jinja --> 
+        <section class="section">
+          <div class="container">
+            <div class="field">
+              <div class="control">
+                <h1 class="title">Class?</h1>
+                <div class="select is-primary">
+                  <select>
+                    <option>Class</option>
+                    <option>19SH07</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="container">
+            <div class="field">
+              <div class="control">
+                <h1 class="title">Name?</h1>
+                <div class="select is-primary">
+                  <select>
+                    <option>Name</option>
+                    {% for name in Names %}
+                    <option>{{ name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>  
         {% for stall in stalls %}
         <section class="section">
             <div class="container">
@@ -71,10 +103,23 @@
                 <div class="control">
                   <div class="select is-primary">
                     <select>
-                      {% for option in stall.stall %}
+                      <option>None</option>
+                      {% for option in stalls[stall] %}
                       <option>{{ option }}</option>
                       {% endfor %}
                     </select>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <div class="select is-primary">
+                      <select>
+                        <option>Quantity?</option>
+                        {% for qty in Quantity %}
+                        <option>{{qty}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -109,3 +154,4 @@
           </section>
           <!-- On hold wait for jinja back end-->
     </body>
+  </html>

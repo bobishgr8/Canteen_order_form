@@ -32,15 +32,18 @@ def form():
 
     cur.execute(f'select * from foods where day_avail like \'%{order_day}%\'')
     rows = cur.fetchall()
-
+    cur.execute("SELECT * FROM student")
+    names = cur.fetchall()
+    quantity_generation = [i for i in range(100)]
     stalls = {}
+    foods = {}
     for enum,row in enumerate(rows):
         if not(row[0] in stalls):
-            stalls[f"{row[0]}"] = {"options":{enum:f"{row[1]}"}}
+            stalls[f"{row[0]}"] = {f"{row[1]}":enum}
         else:
-            stalls[f"{row[0]}"]["options"][enum] = f"{row[1]}"
-    return render_template("form.html",Date=order_day,stalls=stalls)
+            stalls[f"{row[0]}"][f"{row[1]}"] = enum
 
+    return render_template("form.html",Date=order_day,stalls=stalls,Quantity=quantity_generation,Names=dict(names))
 
 
 if __name__ == "__main__":
