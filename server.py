@@ -45,6 +45,9 @@ def form():
 
     return render_template("form.html",Date=order_day,stalls=stalls,Quantity=quantity_generation,Names=dict(names))
 
+data = {name:None, class:None, stall:None, order:None, qty:None}
+
+
 @app.route("/order", methods=["POST"])
 def form_data():
     data = request.form
