@@ -19,7 +19,7 @@ def create_connection(db_file):
 
 all_foods = {}
 
-@app.route("/form")
+@app.route("/form", methods=["GET","POST"])
 def form():
     day_cycle = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
     new_db = create_connection("shitty 1NF db.db")
@@ -45,6 +45,14 @@ def form():
 
     return render_template("form.html",Date=order_day,stalls=stalls,Quantity=quantity_generation,Names=dict(names))
 
+@app.route("/order", methods=["POST"])
+def form_data():
+    data = request.form
+    print(data)
+    for info in data:
+        print(data[info])
+        print(info)
+    return "<h1>sucess</h1>"
 
 if __name__ == "__main__":
     app.run(debug=True)
